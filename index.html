@@ -1,0 +1,64 @@
+<html>
+
+
+<head>
+    <link rel="stylesheet" href="stylez.css">
+    <title>Steven Ellingson Assignment 5</title>
+   
+</head>
+
+<body>
+
+<h1>DATA 607 Assignment 5 part 2</h1>
+<h1>Steven Ellingson</h1>
+
+
+<script src="http://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript">
+    function getDeets() {
+        var pr = document.getElementById("pres_table");
+    
+        pres = document.getElementById("pres_text").value.toLowerCase().replace(/[ ,.]/g, "");
+        
+        var output = "<table>\n<thead><td>Name</td><td>Weight</td><td>Height</td></thead>";
+            
+        d3.csv("/data/presidents.csv", function(data) {
+            row_html = "";
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].Name.toLowerCase().replace(/[ ,.]/g, "").includes(pres)) {
+                    row_html = row_html.concat("\n<tr><td>");
+                    row_html = row_html.concat(data[i].Name);
+                    row_html = row_html.concat("</td>");
+                    row_html = row_html.concat("\n<td>");
+                    row_html = row_html.concat(data[i].Height);
+                    row_html = row_html.concat("</td>");
+                    row_html = row_html.concat("\n<td>");
+                    row_html = row_html.concat(data[i].Weight);
+                    row_html = row_html.concat("</td></tr>");
+                }
+            }
+            output = output.concat(row_html);
+        });
+        setTimeout(function(){
+            output = output.concat("\n</table>");
+            pr.innerHTML = output;
+        },200);
+    }
+    
+    
+
+    
+</script>
+<h3>Type in part of President's last name to see height and weight</h3>
+
+<form id="pres_search" onsubmit="getDeets();return false">
+    <input id="pres_text" type="text" size="10">
+    <button id="search_button" type="submit">Search for President</button>
+    <input type="submit" style="display: none" />
+</form>
+
+
+<div id="pres_table"></div>
+
+</body>
+</html>
