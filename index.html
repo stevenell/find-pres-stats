@@ -22,7 +22,7 @@
         
         var output = "<table>\n<thead><td>Name</td><td>Weight</td><td>Height</td></thead>";
         console.log('a')
-        d3.csv("/data/presidents.csv", function(data) {
+        d3.csv("data/presidents.csv", function(data) {
             row_html = "";
             console.log('b')
             for (var i = 0; i < data.length; i++) {
